@@ -1,0 +1,49 @@
+trainer(101, rahul, cardio).
+trainer(102, amit, strength).
+trainer(103, sneha, yoga).
+trainer(104, pratik, crossfit).
+trainer(105, pooja, zumba).
+
+member(1, ayush).
+member(2, rohan).
+member(3, sneha).
+member(4, pratik).
+member(5, pooja).
+
+booking(1, 101).
+booking(2, 102).
+booking(3, 103).
+booking(5, 105).
+
+fee(101, 500).
+fee(102, 700).
+fee(103, 400).
+fee(104, 600).
+fee(105, 450).
+
+booked(MemberName, TrainerName) :-
+    member(MID, MemberName),
+    booking(MID, TrainerID),
+    trainer(TrainerID, TrainerName, _).
+
+training(TrainerName, TrainingType) :-
+    trainer(_, TrainerName, TrainingType).
+
+has_booking(MemberName) :-
+    member(MID, MemberName),
+    booking(MID, _).
+
+booking_fee(MemberName, Fee) :-
+    member(MID, MemberName),
+    booking(MID, TrainerID),
+    fee(TrainerID, Fee).
+
+available_trainer(TrainingType, TrainerName) :-
+    trainer(_, TrainerName, TrainingType).
+
+trainer_for(MemberName, TrainerName) :-
+    booked(MemberName, TrainerName).
+
+unbooked(MemberName) :-
+    member(_, MemberName),
+    \+ has_booking(MemberName).
